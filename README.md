@@ -34,6 +34,13 @@ netlab up
   docker exec clab-campus-jenkins cat /var/jenkins_home/secrets/initialAdminPassword
   ```
 
+### 3. Install Automation Tools Inside Jenkins
+Provision required system tools and NetDevOps libraries inside the Jenkins container as the root user:
+```bash
+docker exec -u 0 clab-campus-jenkins apt-get update && apt-get install -y python3 python3-pip iputils-ping
+docker exec -u 0 clab-campus-jenkins pip3 install ansible netmiko --break-system-packages
+```
+
 ---
 
 ## 🧪 Jenkins Pipeline Test
