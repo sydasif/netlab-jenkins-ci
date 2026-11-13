@@ -3,6 +3,11 @@ clab.yml
 clab-*
 netlab.lock
 netlab.snapshot.pickle
+ansible.cfg
+hosts.yml
+group_vars/
+host_vars/
+node_files/
 
 # Jenkins persistent home directory on host
 jenkins_home/

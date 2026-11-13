@@ -8,7 +8,7 @@ defaults.devices:
   iol.clab.image: asifsyd/cisco_iol:17.12.01
 
 defaults.providers.clab.attributes.node._keys:
-  volumes: list
+  binds: list
 
 module: [ospf]
 
@@ -19,10 +19,11 @@ nodes:
   R4:
   jenkins:
     device: linux
+    skip_config: [initial, routing]
     clab:
       image: jenkins/jenkins:lts
-      volumes:
-        - ./jenkins_home:/var/jenkins_home
+      binds:
+        - /home/zulu/netlab-jenkins-ci/jenkins_home:/var/jenkins_home
       ports:
         - "8080:8080"
         - "50000:50000"
