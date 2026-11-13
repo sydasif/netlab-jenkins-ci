@@ -1,0 +1,13 @@
+# Netlab generated files & directories
+clab.yml
+ansible.cfg
+hosts.yml
+group_vars/
+host_vars/
+node_files/
+clab-*
+netlab.lock
+netlab.snapshot.pickle
+
+# Jenkins persistent home directory on host
+jenkins_home/

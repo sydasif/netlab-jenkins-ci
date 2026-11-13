@@ -1,0 +1,37 @@
+---
+name: campus
+provider: clab
+
+defaults.device: iol
+
+defaults.devices:
+  iol.clab.image: asifsyd/cisco_iol:17.12.01
+
+defaults.providers.clab.attributes.node._keys:
+  volumes: list
+
+module: [ospf]
+
+nodes:
+  R1:
+  R2:
+  R3:
+  R4:
+  jenkins:
+    device: linux
+    clab:
+      image: jenkins/jenkins:lts
+      volumes:
+        - jenkins_data:/var/jenkins_home
+      exec:
+        - sh -c 'apt-get update && apt-get install -y python3 python3-pip iputils-ping'
+      ports:
+        - "8080:8080"
+        - "50000:50000"
+
+links:
+  - R1-R3
+  - R3-R2
+  - R2-R4
+  - R4-R1
+  - R1-jenkins
