@@ -38,8 +38,7 @@ for ip in routers:
             steps {
                 sh '''
                 echo "=== Running Ansible Playbook for Configuration Backup ==="
-                # Note: Ensure ansible is installed in your container environment or worker
-                ansible-playbook playbooks/backup.yml
+                ansible-playbook -i hosts.yml playbooks/backup.yml
                 '''
             }
         }
