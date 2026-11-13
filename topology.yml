@@ -27,6 +27,16 @@ nodes:
       ports:
         - "8080:8080"
         - "50000:50000"
+  agent:
+    device: linux
+    skip_config: [initial, routing]
+    clab:
+      image: alpine/socat
+      binds:
+        - /var/run/docker.sock:/var/run/docker.sock
+      ports:
+        - "127.0.0.1:2376:2375"
+      cmd: tcp-listen:2375,fork,reuseaddr unix-connect:/var/run/docker.sock
 
 links:
   - R1-R3
@@ -34,3 +44,4 @@ links:
   - R2-R4
   - R4-R1
   - R1-jenkins
+
