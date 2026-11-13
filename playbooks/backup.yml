@@ -1,0 +1,23 @@
+---
+- name: Backup Cisco IOL Configurations
+  hosts: iol
+  gather_facts: no
+  tasks:
+    - name: Ensure backup directory exists
+      file:
+        path: "{{ playbook_dir }}/backups"
+        state: directory
+      delegate_to: localhost
+      run_once: true
+
+    - name: Get running configuration
+      ios_config:
+        backup: yes
+      register: config_output
+
+    - name: Save configuration to local backup folder
+      copy:
+        content: "{{ config_output.backup_path }}"
+        dest: "{{ playbook_dir }}/backups/{{ inventory_hostname }}_config.txt"
+      delegate_to: localhost
+      ignore_errors: yes
