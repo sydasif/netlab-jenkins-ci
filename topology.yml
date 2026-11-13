@@ -22,9 +22,7 @@ nodes:
     clab:
       image: jenkins/jenkins:lts
       volumes:
-        - jenkins_data:/var/jenkins_home
-      exec:
-        - sh -c 'apt-get update && apt-get install -y python3 python3-pip iputils-ping'
+        - ./jenkins_home:/var/jenkins_home
       ports:
         - "8080:8080"
         - "50000:50000"

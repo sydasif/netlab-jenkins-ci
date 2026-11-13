@@ -8,7 +8,7 @@ A production-ready Network DevOps (NetDevOps) lab combining **netlab**, **contai
 
 - **Routers**: 4x Cisco IOL (`R1`, `R2`, `R3`, `R4`) running OSPF.
 - **CI/CD Orchestrator**: 1x Linux container (`jenkins`) running Jenkins LTS.
-- **Persistence**: Jenkins configuration, plugins, and build history persist via Docker named volumes (`jenkins_data`).
+- **Persistence**: Jenkins configuration, plugins, and build history persist via a local host bind mount (`./jenkins_home:/var/jenkins_home`).
 
 ---
 
@@ -17,6 +17,10 @@ A production-ready Network DevOps (NetDevOps) lab combining **netlab**, **contai
 ### Prerequisites
 - Python 3 with `netlab` installed (`pipx install networklab`)
 - Containerlab and Docker installed and running
+- Create and set permissions for the local Jenkins data directory:
+  ```bash
+  mkdir -p jenkins_home && sudo chown -R 1000:1000 jenkins_home
+  ```
 
 ### 1. Start the Lab
 ```bash
@@ -88,4 +92,4 @@ for ip in routers:
   ```bash
   netlab down --cleanup
   ```
-  *(Note: Jenkins plugins and jobs persist in the Docker named volume `jenkins_data`)*
+  *(Note: Jenkins plugins and jobs persist in the local `./jenkins_home` directory on the host)*
