@@ -2,6 +2,13 @@
 - name: Backup Cisco IOL Configurations
   hosts: iol
   gather_facts: no
+  vars:
+    ansible_connection: ansible.netcommon.network_cli
+    ansible_network_os: cisco.ios.ios
+    ansible_user: admin
+    ansible_password: admin
+    ansible_become: yes
+    ansible_become_method: enable
   tasks:
     - name: Ensure backup directory exists
       file:
