@@ -24,19 +24,19 @@ nodes:
       image: jenkins/jenkins:lts
       binds:
         - /home/zulu/netlab-jenkins-ci/jenkins_home:/var/jenkins_home
+        - /var/run/docker.sock:/var/run/docker.sock
+      exec:
+        - sh -c 'groupadd -g 984 docker-host || true && usermod -aG 984 jenkins'
       ports:
         - "8080:8080"
         - "50000:50000"
-  agent:
+  agent1:
     device: linux
     skip_config: [initial, routing]
     clab:
-      image: alpine/socat
+      image: jenkins/ssh-agent:alpine-jdk25
       binds:
-        - /var/run/docker.sock:/var/run/docker.sock
-      ports:
-        - "127.0.0.1:2376:2375"
-      cmd: tcp-listen:2375,fork,reuseaddr unix-connect:/var/run/docker.sock
+        - /home/zulu/.ssh/jenkins_agent_key.pub:/home/jenkins/.ssh/authorized_keys:ro
 
 links:
   - R1-R3
